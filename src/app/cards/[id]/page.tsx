@@ -52,9 +52,9 @@ export default function CardDetailPage() {
       </Link>
 
       <Card>
-        <CardHeader className="flex flex-row items-start justify-between">
+        <CardHeader className="flex flex-row items-center justify-between">
           <div className="space-y-2">
-            <CardTitle className="text-2xl">{card.title}</CardTitle>
+            <CardTitle className="text-2xl font-mono font-bold tracking-tight text-primary glow-text">{card.title}</CardTitle>
             <div className="flex flex-wrap gap-2">
               {card.tags.map(tag => (
                 <Badge key={tag} variant="secondary">{tag}</Badge>

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Search, SortAsc, SortDesc, Filter } from 'lucide-react';
+import { Search, SortAsc, SortDesc, Filter, Brain, Plus } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -108,40 +108,55 @@ export function CardList() {
       )}
 
       {/* カード一覧 */}
+      {/* カード一覧 */}
       {filteredCards.length === 0 ? (
-        <div className="text-center py-12 text-muted-foreground">
-          <p>カードがありません</p>
+        <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed text-center animate-in-fade">
+          <div className="rounded-full bg-muted p-4">
+            <Brain size={48} className="text-muted-foreground" />
+          </div>
+          <h3 className="mt-4 text-lg font-semibold">カードがありません</h3>
+          <p className="mb-4 text-sm text-muted-foreground">
+            単語カードを作成して、学習を始めましょう。
+          </p>
           <Link href="/cards/new">
-            <Button className="mt-4">最初のカードを作成</Button>
+            <Button>
+              <Plus className="mr-2 h-4 w-4" />
+              新規作成
+            </Button>
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 animate-in-fade">
           {filteredCards.map(card => (
             <Link key={card.id} href={`/cards/${card.id}`}>
-              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer hover:border-primary/50">
-                <CardHeader>
-                  <CardTitle className="text-lg line-clamp-1">{card.title}</CardTitle>
-                  <CardDescription className="line-clamp-2">
-                    {card.content.slice(0, 100)}
-                    {card.content.length > 100 && '...'}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-1 mb-2">
+              <Card className="group h-full transition-all hover:-translate-y-1 hover:shadow-md hover:border-primary/50">
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between">
+                    <CardTitle className="text-lg font-bold font-mono tracking-tight line-clamp-1 text-primary glow-text">
+                      {card.title}
+                    </CardTitle>
+                  </div>
+                  <div className="flex flex-wrap gap-1 mt-2">
                     {card.tags.slice(0, 3).map(tag => (
-                      <Badge key={tag} variant="secondary" className="text-xs">
+                      <Badge key={tag} variant="secondary" className="text-xs font-normal border-border/50 bg-background/50">
                         {tag}
                       </Badge>
                     ))}
                     {card.tags.length > 3 && (
-                      <Badge variant="secondary" className="text-xs">
+                      <Badge variant="secondary" className="text-xs font-normal border-border/50 bg-background/50">
                         +{card.tags.length - 3}
                       </Badge>
                     )}
                   </div>
-                  <div className="text-xs text-muted-foreground">
-                    復習: {card.reviewCount}回
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="line-clamp-3 text-sm font-sans h-[4.5em]">
+                    {card.content.replace(/[#*`]/g, '').slice(0, 100)}
+                    {card.content.length > 100 && '...'}
+                  </CardDescription>
+                  <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground font-mono">
+                    <span>{new Date(card.createdAt).toLocaleDateString()}</span>
+                    <span>Rev: {card.reviewCount}</span>
                   </div>
                 </CardContent>
               </Card>

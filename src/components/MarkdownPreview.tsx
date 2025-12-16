@@ -14,53 +14,67 @@ interface MarkdownPreviewProps {
  */
 export function MarkdownPreview({ content, className = '' }: MarkdownPreviewProps) {
   return (
-    <div className={`prose prose-sm max-w-none dark:prose-invert ${className}`}>
+    <div className={`prose prose-zinc dark:prose-invert max-w-none 
+      prose-headings:font-mono prose-headings:tracking-tight 
+      prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg
+      prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+      prose-code:font-mono prose-code:text-sm prose-code:text-primary prose-code:bg-primary/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
+      prose-pre:bg-zinc-950 prose-pre:border prose-pre:border-border/50
+      prose-blockquote:border-l-primary prose-blockquote:bg-muted/50 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-lg
+      prose-img:rounded-lg prose-img:border prose-img:border-border/50
+      ${className}`}
+    >
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          // コードブロックのスタイリング
+          // コードブロック (InlineはCSSクラスで対応、Blockはここで対応)
           code: ({ className, children, ...props }) => {
             const match = /language-(\w+)/.exec(className || '');
             const isInline = !match;
             return isInline ? (
-              <code
-                className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono"
-                {...props}
-              >
+              <code className={className} {...props}>
                 {children}
               </code>
             ) : (
-              <code
-                className={`${className} block bg-muted p-4 rounded-lg overflow-x-auto text-sm font-mono`}
-                {...props}
-              >
-                {children}
-              </code>
+              <div className="relative group">
+                <div className="absolute right-2 top-2 text-xs text-muted-foreground font-mono opacity-0 group-hover:opacity-100 transition-opacity">
+                  {match[1]}
+                </div>
+                <code
+                  className={`${className} block overflow-x-auto p-4 text-sm font-mono`}
+                  {...props}
+                >
+                  {children}
+                </code>
+              </div>
             );
           },
-          // プリフォーマットのスタイリング
-          pre: ({ children }) => (
-            <pre className="bg-muted rounded-lg overflow-x-auto">{children}</pre>
-          ),
-          // テーブルのスタイリング
+          // テーブル
           table: ({ children }) => (
-            <table className="border-collapse border border-border w-full">
+            <div className="overflow-x-auto my-6 rounded-lg border border-border">
+              <table className="w-full text-sm">
+                {children}
+              </table>
+            </div>
+          ),
+          thead: ({ children }) => (
+            <thead className="bg-muted/50 text-muted-foreground font-medium">
               {children}
-            </table>
+            </thead>
           ),
           th: ({ children }) => (
-            <th className="border border-border px-4 py-2 bg-muted text-left">
+            <th className="px-4 py-3 text-left font-medium border-b border-border">
               {children}
             </th>
           ),
           td: ({ children }) => (
-            <td className="border border-border px-4 py-2">{children}</td>
+            <td className="px-4 py-3 border-b border-border last:border-0">{children}</td>
           ),
-          // リンクのスタイリング
+          // リンク
           a: ({ href, children }) => (
             <a
               href={href}
-              className="text-primary hover:underline"
+              className="font-medium text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary transition-all"
               target="_blank"
               rel="noopener noreferrer"
             >
