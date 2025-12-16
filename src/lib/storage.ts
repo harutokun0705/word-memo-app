@@ -1,4 +1,4 @@
-import { WordCard } from '@/types';
+import { WordCard } from '@/features/cards/types';
 
 const STORAGE_KEY = 'word-memo-cards';
 

@@ -34,14 +34,6 @@ export interface CardInput {
   tags: string[];
 }
 
-/**
- * クイズの回答結果
- */
-export interface QuizResult {
-  cardId: string;
-  isCorrect: boolean;
-  answeredAt: Date;
-}
 
 /**
  * 検索・フィルタリングオプション

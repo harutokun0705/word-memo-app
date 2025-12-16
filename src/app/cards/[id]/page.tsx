@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { MarkdownPreview } from '@/components/MarkdownPreview';
-import { useCards } from '@/contexts/CardContext';
+import { useCards } from '@/features/cards/contexts/CardContext';
 
 /**
  * カード詳細ページ

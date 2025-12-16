@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Markdown単語メモアプリ
 
-## Getting Started
+Markdownでメモできる単語帳アプリです。Next.js App RouterとFeatures Architectureを採用しています。
 
-First, run the development server:
+## 機能
+- **単語カード管理**: 作成・編集・削除・一覧表示
+- **Markdown対応**: リアルタイムプレビュー付きエディタ
+- **タグ機能**: タグによる分類とフィルタリング
+- **クイズモード**: 登録したカードで復習
+- **QuickAdd**: 素早く単語を登録できるフローティングボタン
+- **データ永続化**: LocalStorageを使用（MVP）
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ディレクトリ構成 (Features Architecture)
+
+機能単位（Feature）でディレクトリを分割し、凝集度を高めています。
+
+```
+src/
+├── app/                  # Next.js App Router Pages
+│   ├── cards/            # カード関連ページ
+│   ├── quiz/             # クイズページ
+│   └── page.tsx          # ダッシュボード
+├── features/             # 機能モジュール
+│   ├── cards/            # カード管理機能
+│   │   ├── components/   # カード関連UI (CardList, CardForm等)
+│   │   ├── contexts/     # 状態管理 (CardContext)
+│   │   └── types/        # 型定義
+│   ├── quiz/             # クイズ機能
+│   │   ├── components/   # クイズ関連UI (QuizCard)
+│   │   └── types/        # 型定義
+├── components/           # 共通コンポーネント
+│   ├── ui/               # ShadCN UI Elements
+│   ├── MarkdownEditor.tsx
+│   ├── MarkdownPreview.tsx
+│   └── TagInput.tsx
+├── lib/                  # 共通ユーティリティ (storage, utils)
+└── types/                # グローバル型定義（現在はfeaturesに移行済み）
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 技術スタック
+- Framework: Next.js 16
+- Language: TypeScript
+- Styling: Tailwind CSS v4
+- UI Library: ShadCN/UI
+- Markdown: react-markdown
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 開発の始め方
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm install
+npm run dev
+```

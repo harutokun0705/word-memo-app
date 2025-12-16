@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { WordCard, CardInput, FilterOptions } from '@/types';
+import { WordCard, CardInput, FilterOptions } from '../types';
 import { saveCards, loadCards, getSampleCards } from '@/lib/storage';
 
 interface CardContextType {

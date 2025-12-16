@@ -4,8 +4,8 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { CardForm } from '@/components/CardForm';
-import { useCards } from '@/contexts/CardContext';
+import { CardForm } from '@/features/cards/components/CardForm';
+import { useCards } from '@/features/cards/contexts/CardContext';
 
 /**
  * カード編集ページ

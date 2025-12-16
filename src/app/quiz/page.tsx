@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { QuizCard } from '@/components/QuizCard';
+import { QuizCard } from '@/features/quiz/components/QuizCard';
 
 /**
  * クイズページ

@@ -6,10 +6,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { MarkdownEditor } from './MarkdownEditor';
-import { TagInput } from './TagInput';
-import { useCards } from '@/contexts/CardContext';
-import { WordCard } from '@/types';
+import { MarkdownEditor } from '@/components/MarkdownEditor';
+import { TagInput } from '@/components/TagInput';
+import { useCards } from '../contexts/CardContext';
+import { WordCard } from '../types';
 
 interface CardFormProps {
   mode: 'create' | 'edit';

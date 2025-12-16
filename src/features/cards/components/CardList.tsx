@@ -6,8 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { useCards } from '@/contexts/CardContext';
-import { FilterOptions } from '@/types';
+import { useCards } from '../contexts/CardContext';
+import { FilterOptions } from '../types';
 
 /**
  * カード一覧コンポーネント

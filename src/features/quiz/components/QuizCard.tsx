@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { MarkdownPreview } from './MarkdownPreview';
-import { useCards } from '@/contexts/CardContext';
-import { WordCard } from '@/types';
+import { MarkdownPreview } from '@/components/MarkdownPreview';
+import { useCards } from '@/features/cards/contexts/CardContext';
+import { WordCard } from '@/features/cards/types';
 
 type QuizMode = 'title' | 'content';
 

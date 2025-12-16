@@ -1,6 +1,6 @@
 'use client';
 
-import { CardForm } from '@/components/CardForm';
+import { CardForm } from '@/features/cards/components/CardForm';
 
 /**
  * 新規カード作成ページ

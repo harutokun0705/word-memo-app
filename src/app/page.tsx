@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { Plus, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { CardList } from '@/components/CardList';
-import { useCards } from '@/contexts/CardContext';
+import { CardList } from '@/features/cards/components/CardList';
+import { useCards } from '@/features/cards/contexts/CardContext';
 
 /**
  * ダッシュボード（ホーム）ページ

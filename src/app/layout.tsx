@@ -1,8 +1,9 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
-import { CardProvider } from "@/contexts/CardContext";
-import { QuickAddButton } from "@/components/QuickAddButton";
+import { CardProvider } from '@/features/cards/contexts/CardContext';
+import { QuickAddButton } from '@/features/cards/components/QuickAddButton';
 import "./globals.css";
 
 const geistSans = Geist({
