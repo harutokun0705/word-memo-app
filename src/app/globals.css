@@ -45,8 +45,8 @@
   --popover: hsl(240 10% 4%);
   --popover-foreground: hsl(0 0% 98%);
 
-  --primary: hsl(84 100% 65%); /* Neon Lime */
-  --primary-foreground: hsl(144 70% 5%);
+  --primary: hsl(141 73% 42%); /* Spotify Green #1DB954 */
+  --primary-foreground: hsl(0 0% 100%); /* White text for contrast */
 
   --secondary: hsl(240 6% 14%);
   --secondary-foreground: hsl(0 0% 98%);
@@ -62,12 +62,12 @@
 
   --border: hsl(240 6% 16%);
   --input: hsl(240 6% 16%);
-  --ring: hsl(84 100% 65%);
+  --ring: hsl(141 73% 42%);
 
   --radius: 1rem;
 
   /* Chart Colors (Neon) */
-  --chart-1: hsl(84 100% 65%);
+  --chart-1: hsl(141 73% 42%);
   --chart-2: hsl(190 100% 50%);
   --chart-3: hsl(310 100% 65%);
   --chart-4: hsl(260 100% 70%);
@@ -81,8 +81,8 @@
   --card-foreground: hsl(0 0% 98%);
   --popover: hsl(240 10% 4%);
   --popover-foreground: hsl(0 0% 98%);
-  --primary: hsl(84 100% 65%);
-  --primary-foreground: hsl(144 70% 5%);
+  --primary: hsl(141 73% 42%);
+  --primary-foreground: hsl(0 0% 100%);
   --secondary: hsl(240 6% 14%);
   --secondary-foreground: hsl(0 0% 98%);
   --muted: hsl(240 6% 14%);
@@ -93,7 +93,7 @@
   --destructive-foreground: hsl(0 0% 98%);
   --border: hsl(240 6% 16%);
   --input: hsl(240 6% 16%);
-  --ring: hsl(84 100% 65%);
+  --ring: hsl(141 73% 42%);
 }
 
 @layer base {
@@ -110,10 +110,10 @@
   }
   /* Glowing effects for tech feel */
   .glow-text {
-    text-shadow: 0 0 10px rgba(184, 255, 51, 0.5);
+    text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
   }
   .glow-border {
-    box-shadow: 0 0 10px rgba(184, 255, 51, 0.2);
+    box-shadow: 0 0 10px rgba(29, 185, 84, 0.2);
   }
   
   /* Typography tweaks */

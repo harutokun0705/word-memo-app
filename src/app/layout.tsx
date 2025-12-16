@@ -46,8 +46,8 @@ export default function RootLayout({
           </main>
 
           {/* フッター */}
-          <footer className="border-t py-6 text-center text-sm text-muted-foreground">
-            <p>Markdown単語メモアプリ - FE/BE エンジニア向け学習ツール</p>
+          <footer className="border-t py-6 text-center text-sm text-muted-foreground px-4 md:px-6">
+            <p>MD_Memo - IT用語学習アプリ</p>
           </footer>
 
           {/* QuickAddフローティングボタン */}
