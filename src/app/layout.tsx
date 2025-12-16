@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import { Button } from '@/components/ui/button';
+import { AuthProvider } from '@/contexts/AuthContext';
 import { CardProvider } from '@/features/cards/contexts/CardContext';
 import { QuickAddButton } from '@/features/cards/components/QuickAddButton';
 import { SiteHeader } from '@/components/SiteHeader';
@@ -37,22 +38,24 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
-        <CardProvider>
-          <SiteHeader />
+        <AuthProvider>
+          <CardProvider>
+            <SiteHeader />
 
-          {/* メインコンテンツ */}
-          <main className="container mx-auto py-6 px-4 md:px-6">
-            {children}
-          </main>
+            {/* メインコンテンツ */}
+            <main className="container mx-auto py-6 px-4 md:px-6">
+              {children}
+            </main>
 
-          {/* フッター */}
-          <footer className="border-t py-6 text-center text-sm text-muted-foreground px-4 md:px-6">
-            <p>MD_Memo - IT用語学習アプリ</p>
-          </footer>
+            {/* フッター */}
+            <footer className="border-t py-6 text-center text-sm text-muted-foreground px-4 md:px-6">
+              <p>MD_Memo - IT用語学習アプリ</p>
+            </footer>
 
-          {/* QuickAddフローティングボタン */}
-          <QuickAddButton />
-        </CardProvider>
+            {/* QuickAddフローティングボタン */}
+            <QuickAddButton />
+          </CardProvider>
+        </AuthProvider>
       </body>
     </html>
   );

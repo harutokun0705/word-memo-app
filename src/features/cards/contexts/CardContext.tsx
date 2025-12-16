@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback, use
 import { v4 as uuidv4 } from 'uuid';
 import { WordCard, CardInput, FilterOptions } from '../types';
 import { saveCards, loadCards, getSampleCards } from '@/lib/storage';
+import { recordActivity } from '@/lib/activitySession';
 
 interface CardContextType {
   // カード一覧
@@ -131,6 +132,7 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
       relatedCardIds: input.relatedCardIds || [],
     };
     setCards(prev => [...prev, newCard]);
+    recordActivity(); // Record creation activity
     return newCard;
   }, []);
 
@@ -147,6 +149,9 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
           : card
       )
     );
+    if (input.status || input.content) {
+      recordActivity();
+    }
   }, []);
 
   // カード削除
@@ -172,6 +177,7 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
           : card
       )
     );
+    recordActivity();
   }, []);
 
   // ランダムカード取得

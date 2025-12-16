@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Plus, Brain, Terminal, Zap, Check, ThumbsUp, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardList } from '@/features/cards/components/CardList';
+import { ContributionGraph } from '@/components/ContributionGraph';
 import { useCards } from '@/features/cards/contexts/CardContext';
 import { isReviewNeeded, calculateNextReview, ReviewGrade } from '@/lib/spacedRepetition';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -177,6 +178,17 @@ export default function DashboardPage() {
              <Zap className="h-5 w-5" />
           </Button>
         </div>
+
+      {/* Contribution Graph */}
+      <div className="space-y-4">
+        <h2 className="text-xl font-bold tracking-tight flex items-center">
+          <span className="w-2 h-6 bg-primary rounded-full mr-3" />
+          Activity Log
+        </h2>
+        <div className="p-6 rounded-3xl bg-card border border-white/5">
+          <ContributionGraph />
+        </div>
+      </div>
       </div>
 
       {/* Card List Section */}
