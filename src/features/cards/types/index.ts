@@ -11,6 +11,11 @@ export interface WordCard {
   updatedAt: Date;
   lastReviewedAt?: Date;
   reviewCount: number;
+  status: 'memo' | 'output'; // ステータス管理
+  nextReviewDate?: Date; // 次回復習日
+  easeFactor: number; // 難易度係数 (初期値 2.5)
+  interval: number; // 復習間隔 (日)
+  relatedCardIds: string[]; // 関連カードID
 }
 
 /**
@@ -32,6 +37,11 @@ export interface CardInput {
   title: string;
   content: string;
   tags: string[];
+  status?: 'memo' | 'output';
+  easeFactor?: number;
+  interval?: number;
+  nextReviewDate?: Date;
+  relatedCardIds?: string[];
 }
 
 

@@ -15,14 +15,14 @@ import { useCards } from '@/features/cards/contexts/CardContext';
 export default function CardDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const { getCardById, deleteCard } = useCards();
-  
+  const { getCardById, deleteCard, cards } = useCards();
+
   const cardId = params.id as string;
   const card = getCardById(cardId);
 
-  const handleDelete = () => {
-    if (confirm('このカードを削除しますか？')) {
-      deleteCard(cardId);
+  const handleDelete = async () => {
+    if (confirm('本当にこのカードを削除しますか？')) {
+      await deleteCard(cardId);
       router.push('/');
     }
   };
@@ -40,6 +40,16 @@ export default function CardDetailPage() {
       </div>
     );
   }
+
+  // 関連カードの取得
+  const relatedCards = card.relatedCardIds 
+    ? card.relatedCardIds.map(id => getCardById(id)).filter((c): c is NonNullable<typeof c> => c !== undefined)
+    : [];
+
+  // バックリンク（このカードを参照しているカード）の取得
+  const backlinks = cards.filter(c => c.relatedCardIds?.includes(card.id));
+
+
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -59,6 +69,9 @@ export default function CardDetailPage() {
               {card.tags.map(tag => (
                 <Badge key={tag} variant="secondary">{tag}</Badge>
               ))}
+              <Badge variant={card.status === 'output' ? 'default' : 'outline'} className={`text-xs font-normal border-border/50 ${card.status === 'output' ? 'bg-primary/20 text-primary border-primary/50' : 'text-muted-foreground'}`}>
+                {card.status === 'output' ? 'OUT' : 'MEMO'}
+              </Badge>
             </div>
           </div>
           <div className="flex gap-2">
@@ -83,8 +96,45 @@ export default function CardDetailPage() {
             )}
           </div>
           
+          {/* 関連カード & バックリンク */}
+          {(relatedCards.length > 0 || backlinks.length > 0) && (
+            <div className="mt-8 grid md:grid-cols-2 gap-6">
+              {relatedCards.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Related Cards</h3>
+                  <div className="space-y-2">
+                    {relatedCards.map(related => (
+                      <Link key={related.id} href={`/cards/${related.id}`}>
+                        <div className="p-3 rounded-lg border bg-card hover:bg-accent transition-colors flex items-center justify-between group">
+                          <span className="font-medium group-hover:text-primary transition-colors">{related.title}</span>
+                          <ArrowLeft className="h-4 w-4 rotate-180 text-muted-foreground group-hover:text-primary transition-colors" />
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {backlinks.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Linked From</h3>
+                  <div className="space-y-2">
+                    {backlinks.map(backlink => (
+                      <Link key={backlink.id} href={`/cards/${backlink.id}`}>
+                         <div className="p-3 rounded-lg border border-dashed hover:border-solid bg-card/50 hover:bg-accent transition-colors flex items-center justify-between group">
+                          <span className="font-medium group-hover:text-primary transition-colors">{backlink.title}</span>
+                          <span className="text-xs text-muted-foreground">Ref</span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+          
           {/* メタ情報 */}
-          <div className="mt-6 text-sm text-muted-foreground space-y-1">
+          <div className="mt-8 pt-6 border-t text-sm text-muted-foreground space-y-1">
             <p>作成日: {card.createdAt.toLocaleString('ja-JP')}</p>
             <p>更新日: {card.updatedAt.toLocaleString('ja-JP')}</p>
             <p>復習回数: {card.reviewCount}回</p>

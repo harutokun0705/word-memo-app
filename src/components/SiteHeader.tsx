@@ -28,12 +28,7 @@ export function SiteHeader() {
               Library
             </Link>
           </Button>
-          <Button variant="ghost" size="sm" asChild className="hover:bg-white/5 text-muted-foreground hover:text-foreground">
-            <Link href="/quiz">
-              <Zap className="mr-2 h-4 w-4" />
-              Quiz
-            </Link>
-          </Button>
+
           <Button size="sm" asChild className="ml-2 bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_15px_rgba(184,255,51,0.2)] hover:shadow-[0_0_20px_rgba(184,255,51,0.4)] transition-all">
             <Link href="/cards/new">
               <Plus className="mr-2 h-4 w-4" />
@@ -65,14 +60,7 @@ export function SiteHeader() {
                 <BookOpen className="h-5 w-5" />
                 <span className="font-medium">Library</span>
               </Link>
-              <Link 
-                href="/quiz" 
-                className="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-white/5 text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Zap className="h-5 w-5" />
-                <span className="font-medium">Quiz</span>
-              </Link>
+
               <Link 
                 href="/cards/new"
                 onClick={() => setIsMobileMenuOpen(false)}

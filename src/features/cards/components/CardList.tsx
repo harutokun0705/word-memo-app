@@ -147,6 +147,10 @@ export function CardList() {
                         +{card.tags.length - 3}
                       </Badge>
                     )}
+                    {/* ステータスバッジ */}
+                    <Badge variant={card.status === 'output' ? 'default' : 'outline'} className={`text-xs font-normal border-border/50 ${card.status === 'output' ? 'bg-primary/20 text-primary border-primary/50' : 'text-muted-foreground'}`}>
+                      {card.status === 'output' ? 'OUT' : 'MEMO'}
+                    </Badge>
                   </div>
                 </CardHeader>
                 <CardContent>

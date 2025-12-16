@@ -26,6 +26,12 @@ export function loadCards(): WordCard[] {
       createdAt: new Date(card.createdAt),
       updatedAt: new Date(card.updatedAt),
       lastReviewedAt: card.lastReviewedAt ? new Date(card.lastReviewedAt) : undefined,
+      nextReviewDate: card.nextReviewDate ? new Date(card.nextReviewDate) : undefined,
+      // 新しいフィールドの初期値設定（既存データ移行用）
+      status: card.status || 'memo',
+      easeFactor: card.easeFactor || 2.5,
+      interval: card.interval || 0,
+      relatedCardIds: card.relatedCardIds || [],
     }));
   } catch {
     return [];
@@ -60,6 +66,10 @@ function Hello({ name }) {
       createdAt: now,
       updatedAt: now,
       reviewCount: 0,
+      status: 'memo',
+      easeFactor: 2.5,
+      interval: 0,
+      relatedCardIds: [],
     },
     {
       id: 'sample-2',
@@ -88,6 +98,10 @@ function greet(user: User): string {
       createdAt: now,
       updatedAt: now,
       reviewCount: 0,
+      status: 'output',
+      easeFactor: 2.5,
+      interval: 0,
+      relatedCardIds: [],
     },
   ];
 }

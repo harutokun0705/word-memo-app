@@ -124,6 +124,11 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
       createdAt: now,
       updatedAt: now,
       reviewCount: 0,
+      status: input.status || 'memo',
+      easeFactor: input.easeFactor || 2.5,
+      interval: input.interval || 0,
+      nextReviewDate: input.nextReviewDate,
+      relatedCardIds: input.relatedCardIds || [],
     };
     setCards(prev => [...prev, newCard]);
     return newCard;
