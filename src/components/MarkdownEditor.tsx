@@ -25,7 +25,7 @@ export function MarkdownEditor({ value, onChange, placeholder = 'Markdownで記�
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 min-h-[300px] font-mono text-sm resize-none"
+          className="flex-1 min-h-[300px] font-mono text-sm resize-none text-primary glow-text placeholder:text-muted-foreground/30 focus-visible:ring-primary/50"
         />
       </div>
 

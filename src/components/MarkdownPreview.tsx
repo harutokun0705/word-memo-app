@@ -22,6 +22,8 @@ export function MarkdownPreview({ content, className = '' }: MarkdownPreviewProp
       prose-pre:bg-zinc-950 prose-pre:border prose-pre:border-border/50
       prose-blockquote:border-l-primary prose-blockquote:bg-muted/50 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-lg
       prose-img:rounded-lg prose-img:border prose-img:border-border/50
+      prose-headings:text-primary prose-p:text-primary prose-li:text-primary prose-strong:text-primary
+      text-primary glow-text
       ${className}`}
     >
       <ReactMarkdown
