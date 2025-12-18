@@ -22,6 +22,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Markdown単語メモ - IT用語学習アプリ",
   description: "IT・プログラミング用語をMarkdownでメモし、タグ付け・検索・クイズ形式で復習できるアプリ",
+  manifest: "/manifest.json",
+  themeColor: "#1DB954",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "MD_Memo",
+  },
 };
 
 /**

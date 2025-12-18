@@ -43,6 +43,7 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
   const [filterOptions, setFilterOptions] = useState<FilterOptions>(defaultFilterOptions);
   const [isInitialized, setIsInitialized] = useState(false);
 
+
   // 初期化時にLocalStorageからカードを読み込む
   useEffect(() => {
     const loadedCards = loadCards();

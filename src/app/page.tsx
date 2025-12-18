@@ -1,7 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Plus, Brain, Terminal, Zap, Check, ThumbsUp, Star } from 'lucide-react';
+import { Plus, Terminal, Zap, Bell, BellOff, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardList } from '@/features/cards/components/CardList';
 import { ContributionGraph } from '@/components/ContributionGraph';
@@ -9,6 +10,11 @@ import { useCards } from '@/features/cards/contexts/CardContext';
 import { isReviewNeeded, calculateNextReview, ReviewGrade } from '@/lib/spacedRepetition';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { 
+  requestNotificationPermission, 
+  getNotificationPermission, 
+  sendMemoReminder 
+} from '@/lib/notifications';
 
 /**
  * ダッシュボード（ホーム）ページ
@@ -16,9 +22,39 @@ import { Badge } from '@/components/ui/badge';
  */
 export default function DashboardPage() {
   const { cards, updateCard } = useCards();
+  const [notificationStatus, setNotificationStatus] = useState<NotificationPermission | 'unsupported'>('default');
 
   // 復習が必要なカードを抽出
   const reviewCards = cards.filter(card => isReviewNeeded(card));
+  
+  // まだアウトプットしていないメモを抽出
+  const pendingMemos = cards.filter(card => card.status === 'memo');
+
+  // 通知許可状態を確認 & メモリマインダーを送信
+  useEffect(() => {
+    const status = getNotificationPermission();
+    setNotificationStatus(status);
+
+    // 未アウトプットメモがあれば通知を送信（許可済みの場合）
+    if (status === 'granted' && pendingMemos.length > 0) {
+      // ページ読み込みの度に通知しないよう、セッション中は一度だけ
+      const reminded = sessionStorage.getItem('memo-reminded');
+      if (!reminded) {
+        sendMemoReminder(pendingMemos.length);
+        sessionStorage.setItem('memo-reminded', 'true');
+      }
+    }
+  }, [pendingMemos.length]);
+
+  // 通知許可をリクエスト
+  const handleEnableNotifications = async () => {
+    const permission = await requestNotificationPermission();
+    setNotificationStatus(permission);
+    if (permission === 'granted' && pendingMemos.length > 0) {
+      sendMemoReminder(pendingMemos.length);
+      sessionStorage.setItem('memo-reminded', 'true');
+    }
+  };
 
   // 復習処理
   const handleReview = (id: string, grade: ReviewGrade) => {
@@ -51,6 +87,40 @@ export default function DashboardPage() {
           </div>
         </div>
       </section>
+
+      {/* Pending Memos Alert & Notification Controls */}
+      {pendingMemos.length > 0 && (
+        <div className="p-4 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <AlertCircle className="h-5 w-5 text-yellow-500 shrink-0" />
+            <div>
+              <p className="font-medium text-yellow-500">
+                {pendingMemos.length}件のメモが未アウトプットです
+              </p>
+              <p className="text-sm text-muted-foreground">
+                学んだ内容をアウトプットして知識を定着させましょう！
+              </p>
+            </div>
+          </div>
+          {notificationStatus !== 'granted' && notificationStatus !== 'unsupported' && (
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleEnableNotifications}
+              className="border-yellow-500/30 text-yellow-500 hover:bg-yellow-500/10"
+            >
+              <Bell className="h-4 w-4 mr-2" />
+              リマインドを有効化
+            </Button>
+          )}
+          {notificationStatus === 'granted' && (
+            <Badge variant="outline" className="border-primary/30 text-primary">
+              <Bell className="h-3 w-3 mr-1" />
+              通知ON
+            </Badge>
+          )}
+        </div>
+      )}
 
       {/* Review Section (Shows if there are cards to review) */}
       {reviewCards.length > 0 && (
